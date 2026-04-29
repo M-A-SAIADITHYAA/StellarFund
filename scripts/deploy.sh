@@ -50,7 +50,14 @@ echo "Step 3: Building the contract..."
 stellar contract build
 echo "  Build complete."
 
-WASM_PATH="../../target/wasm32-unknown-unknown/release/crowdfund.wasm"
+# Auto-detect WASM target directory (newer CLI uses wasm32v1-none)
+if [ -f "target/wasm32v1-none/release/crowdfund.wasm" ]; then
+    WASM_PATH="target/wasm32v1-none/release/crowdfund.wasm"
+elif [ -f "target/wasm32-unknown-unknown/release/crowdfund.wasm" ]; then
+    WASM_PATH="target/wasm32-unknown-unknown/release/crowdfund.wasm"
+else
+    echo "  ❌ WASM file not found!" && exit 1
+fi
 
 # Step 4: Deploy to testnet
 echo ""

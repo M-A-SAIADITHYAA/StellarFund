@@ -12,8 +12,8 @@ export const CONFIG = {
   FRIENDBOT_URL: 'https://friendbot.stellar.org',
 
   // ---- Contract ----
-  // Replace with your deployed contract ID from contract-id.txt
-  CONTRACT_ID: 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC',
+  // Deployed crowdfund contract on testnet
+  CONTRACT_ID: 'CCBIQZIYYN6MUQ7JESOULLKN5C47F7XMXL5SHNDHCWYFYRXID22E4FWH',
 
   // Native XLM SAC wrapper on testnet
   XLM_SAC: 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC',

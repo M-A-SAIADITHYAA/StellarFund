@@ -163,7 +163,7 @@ export async function donate(amountXLM) {
     }
 
     // Prepare the transaction with simulation results
-    const preparedTx = StellarSdk.assembleTransaction(tx, simResult).build();
+    const preparedTx = rpc.assembleTransaction(tx, simResult).build();
 
     // Sign via wallet
     updateTransaction(txId, { status: 'signing' });
