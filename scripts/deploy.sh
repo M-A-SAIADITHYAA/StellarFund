@@ -31,16 +31,16 @@ if stellar keys address "$IDENTITY_NAME" 2>/dev/null; then
     echo "  Identity '$IDENTITY_NAME' already exists."
 else
     echo "  Generating new identity '$IDENTITY_NAME'..."
-    stellar keys generate --global "$IDENTITY_NAME" --network "$NETWORK"
-    echo "  Identity created."
+    stellar keys generate "$IDENTITY_NAME" --network "$NETWORK" --fund
+    echo "  Identity created and funded."
 fi
 
 DEPLOYER_ADDRESS=$(stellar keys address "$IDENTITY_NAME")
 echo "  Deployer address: $DEPLOYER_ADDRESS"
 
-# Step 2: Fund the account via Friendbot
+# Step 2: Ensure account is funded via Friendbot
 echo ""
-echo "Step 2: Funding account via Friendbot..."
+echo "Step 2: Ensuring account is funded..."
 curl -s "https://friendbot.stellar.org?addr=$DEPLOYER_ADDRESS" > /dev/null 2>&1 || true
 echo "  Account funded (or already funded)."
 
