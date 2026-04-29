@@ -92,13 +92,13 @@ yellowbelt/
 ## Screenshots
 
 ### Wallet Options (StellarWalletsKit)
-![Wallet selection modal showing Freighter, Albedo, xBull, Rabet, LOBSTR](screenshots/wallet-options.jpeg)
+![Wallet selection modal showing Freighter, Albedo, xBull, Rabet, LOBSTR](Screenshots/wallet-options.jpeg)
 
 ### Deployed Contract Address
-![Campaign details showing deployed contract ID and active status](screenshots/deployed-contract.jpeg)
+![Campaign details showing deployed contract ID and active status](Screenshots/deployed-contract.jpeg)
 
 ### Transaction Hash on Stellar Explorer
-![Transaction verified on Stellar Expert - contract WASM upload](screenshots/transaction-explorer.jpeg)
+![Transaction verified on Stellar Expert - contract WASM upload](Screenshots/transaction-explorer.jpeg)
 
 
 
