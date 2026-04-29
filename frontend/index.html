@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StellarFund — Decentralized Crowdfunding on Stellar</title>
+  <meta name="description" content="A decentralized crowdfunding platform powered by Soroban smart contracts on the Stellar network. Donate XLM and track progress in real-time." />
+  <meta name="keywords" content="Stellar, Soroban, Crowdfunding, Blockchain, DeFi, XLM" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+  <link rel="stylesheet" href="/src/styles/index.css" />
+</head>
+<body>
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- App Root -->
+  <div id="app">
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+      <div class="navbar-content">
+        <div class="navbar-brand">
+          <span class="brand-icon">◆</span>
+          <span class="brand-text">StellarFund</span>
+        </div>
+        <div class="navbar-actions">
+          <div id="network-badge" class="badge badge-outline">
+            <span class="pulse-dot"></span>
+            TESTNET
+          </div>
+          <div id="wallet-section"></div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section id="hero-section" class="hero">
+        <div class="hero-bg-glow"></div>
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge badge-primary">Live Campaign</span>
+          </div>
+          <h1 class="hero-title">Community Innovation Fund</h1>
+          <p class="hero-description">
+            Help us build the next generation of decentralized tools on Stellar.
+            Every contribution brings us closer to a more open financial system.
+          </p>
+        </div>
+      </section>
+
+      <!-- Progress Section -->
+      <section id="progress-section" class="section">
+        <div class="card card-elevated progress-card">
+          <div class="progress-header">
+            <div>
+              <span id="raised-amount" class="progress-amount">0</span>
+              <span class="progress-unit">XLM raised</span>
+            </div>
+            <div class="progress-target">
+              of <span id="goal-amount">1,000</span> XLM goal
+            </div>
+          </div>
+          <div class="progress-bar-container">
+            <div id="progress-bar" class="progress-bar" style="width: 0%;">
+              <div class="progress-bar-glow"></div>
+            </div>
+          </div>
+          <div class="progress-percentage">
+            <span id="progress-percent">0</span>% funded
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats Row -->
+      <section class="section stats-grid">
+        <div class="card stat-card">
+          <div class="stat-icon stat-icon-raised">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <div class="stat-value" id="stat-raised">0 XLM</div>
+          <div class="stat-label">Total Raised</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-icon stat-icon-donors">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <div class="stat-value" id="stat-donors">0</div>
+          <div class="stat-label">Donors</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-icon stat-icon-time">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div class="stat-value" id="stat-time">-- days</div>
+          <div class="stat-label">Time Remaining</div>
+        </div>
+      </section>
+
+      <!-- Two Column Layout: Donate + Tx Log -->
+      <section class="section two-col-grid">
+        <!-- Donate Card -->
+        <div class="card card-elevated donate-card">
+          <div class="card-header">
+            <h2 class="card-title">Make a Donation</h2>
+            <p class="card-description">Support this campaign with testnet XLM</p>
+          </div>
+          <div class="card-body">
+            <!-- Wallet Info -->
+            <div id="wallet-info" class="wallet-info hidden">
+              <div class="wallet-info-row">
+                <span class="wallet-info-label">Connected</span>
+                <span id="wallet-address" class="wallet-info-value truncate"></span>
+              </div>
+              <div class="wallet-info-row">
+                <span class="wallet-info-label">Balance</span>
+                <span id="wallet-balance" class="wallet-info-value">-- XLM</span>
+              </div>
+            </div>
+
+            <!-- Connect Wallet Prompt -->
+            <div id="connect-prompt" class="connect-prompt">
+              <div class="connect-prompt-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M22 10H18a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2h4"></path><circle cx="18" cy="12" r="0.5" fill="currentColor"></circle></svg>
+              </div>
+              <p class="connect-prompt-text">Connect your wallet to donate</p>
+              <div id="wallet-button-wrapper"></div>
+            </div>
+
+            <!-- Donation Form -->
+            <div id="donation-form" class="donation-form hidden">
+              <div class="preset-amounts">
+                <button class="btn btn-outline preset-btn" data-amount="10">10 XLM</button>
+                <button class="btn btn-outline preset-btn" data-amount="50">50 XLM</button>
+                <button class="btn btn-outline preset-btn" data-amount="100">100 XLM</button>
+                <button class="btn btn-outline preset-btn" data-amount="500">500 XLM</button>
+              </div>
+              <div class="input-group">
+                <input
+                  type="number"
+                  id="donate-amount"
+                  class="input"
+                  placeholder="Enter amount"
+                  min="1"
+                  step="1"
+                />
+                <span class="input-suffix">XLM</span>
+              </div>
+              <button id="donate-btn" class="btn btn-primary btn-lg btn-full">
+                <span class="btn-content">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                  Donate Now
+                </span>
+                <span class="btn-loading hidden">
+                  <span class="spinner"></span>
+                  Processing...
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transaction Log -->
+        <div class="card card-elevated tx-card">
+          <div class="card-header">
+            <h2 class="card-title">Transaction Log</h2>
+            <p class="card-description">Real-time transaction status</p>
+          </div>
+          <div class="card-body">
+            <div id="tx-log" class="tx-log">
+              <div class="tx-empty">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                <p>No transactions yet</p>
+                <p class="tx-empty-hint">Donations will appear here in real-time</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Campaign Details -->
+      <section class="section">
+        <div class="card card-elevated">
+          <div class="card-header">
+            <h2 class="card-title">Campaign Details</h2>
+          </div>
+          <div class="card-body">
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">Contract ID</span>
+                <a id="contract-link" href="#" target="_blank" rel="noopener" class="detail-value detail-link truncate">
+                  Loading...
+                </a>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Network</span>
+                <span class="detail-value">Stellar Testnet</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Owner</span>
+                <span id="campaign-owner" class="detail-value truncate">Loading...</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Status</span>
+                <span id="campaign-status" class="badge badge-success">Active</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <p>
+          <span class="brand-icon">◆</span> StellarFund — Built on Stellar Soroban
+        </p>
+        <p class="footer-sub">
+          Level 2 Yellow Belt • Multi-Wallet + Smart Contract Integration
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
