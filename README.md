@@ -22,7 +22,6 @@ A crowdfunding platform built on Stellar's Soroban smart contract platform. User
   1. Wallet Not Found — no compatible extension detected
   2. Transaction Rejected — user declined in wallet
   3. Insufficient Balance — account XLM < donation amount
-- **shadcn-inspired dark UI** — Zinc color palette, glassmorphism, micro-animations
 - **Real-time polling** — contract state synced every 5 seconds
 
 ## Prerequisites
@@ -89,6 +88,19 @@ yellowbelt/
 | Blockchain SDK | @stellar/stellar-sdk |
 | Styling | Vanilla CSS (shadcn-inspired) |
 | Network | Stellar Testnet |
+
+## Screenshots
+
+### Wallet Options (StellarWalletsKit)
+![Wallet selection modal showing Freighter, Albedo, xBull, Rabet, LOBSTR](screenshots/wallet-options.jpeg)
+
+### Deployed Contract Address
+![Campaign details showing deployed contract ID and active status](screenshots/deployed-contract.jpeg)
+
+### Transaction Hash on Stellar Explorer
+![Transaction verified on Stellar Expert - contract WASM upload](screenshots/transaction-explorer.jpeg)
+
+
 
 ## License
 
